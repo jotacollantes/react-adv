@@ -1,11 +1,19 @@
 import { ReactElement } from "react";
+import { Props as ProductCardProps } from "../components/ProductCard";
+import { Props as ProductTitleProps } from "../components/ProductTitle";
+import { Props as ProductImageProps } from "../components/ProductImage";
+import { Props as ProductButtonsProps } from "../components/ProductButtons";
 
-export interface ProductCardProps
-{
-    product: Product;
-    //*Definimos el children
-    children?: ReactElement | ReactElement[]//*Es opcional, el componente puede recibir un hijo o varios, si son varios se especifica como arreglo.
-}
+
+
+// export interface ProductCardProps
+// {
+//     product: Product;
+//     //*Definimos el children
+//     children?: ReactElement | ReactElement[]//*Es opcional, el componente puede recibir un hijo o varios, si son varios se especifica como arreglo.
+// }
+
+
 //* Asi luce un producto
 export interface Product {
     id: string;
@@ -27,7 +35,11 @@ product: Product
 export interface ProductCardHOCProps
 {
  ( { children, product }: ProductCardProps):JSX.Element;
-   Title: ({ title }: {title: string;}) => JSX.Element;
-   Image: ({ img }: {img?: string | undefined;}) => JSX.Element;
-   Buttons: () => JSX.Element;
+   //Title: ({ className,title }: {title: string; className?:string}) => JSX.Element;
+   Title: ({ className,title }: ProductTitleProps) => JSX.Element;
+   //Image: ({ className,img }: {img?: string | undefined; className?:string}) => JSX.Element;
+   Image: ({ className,img }: ProductImageProps) => JSX.Element;
+   //Buttons: ({className}:{className?: string}) => JSX.Element;
+   Buttons: ({className}:ProductButtonsProps) => JSX.Element;
+   
 }

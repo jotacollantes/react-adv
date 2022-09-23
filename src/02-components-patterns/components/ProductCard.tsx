@@ -1,6 +1,6 @@
 import { useProduct}  from '../hooks/useProduct'
-import { createContext, ReactElement, useContext } from 'react';
-import { ProductCardProps, ProductContextProps } from '../interfaces/interfaces';
+import { createContext, CSSProperties, ReactElement, useContext } from 'react';
+import { Product, ProductContextProps } from '../interfaces/interfaces';
 import styles from '../styles/styles.module.css'
 import { ProductTitle } from './ProductTitle';
 import { ProductImage } from './ProductImage';
@@ -16,8 +16,19 @@ export const ProductContext =createContext({} as ProductContextProps)
 const {Provider}=ProductContext
 
 
+export interface Props
+{
+    product: Product;
+    //*Definimos el children
+    //*Es opcional, el componente puede recibir un hijo o varios, si son varios se especifica como arreglo.
+    children?: ReactElement | ReactElement[];
+    className?:string;
+    style?: CSSProperties
+}
+
+
 //* se va a recibir el objeto completo
-export const ProductCard = ({children ,product}:ProductCardProps) => {
+export const ProductCard = ({children ,product,className,style}:Props) => {
 
     const {counter,increase,dicrease}=useProduct()
  
@@ -31,7 +42,9 @@ export const ProductCard = ({children ,product}:ProductCardProps) => {
             dicrease,
             product
         }}>
-         <div className={styles.productCard}>
+         <div className={`${styles.productCard} ${className}`}
+         style={style}
+         >
        
         {children}
 

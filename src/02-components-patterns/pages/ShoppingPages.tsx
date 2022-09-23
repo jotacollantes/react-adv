@@ -1,5 +1,6 @@
 import React from 'react'
 import { ProductsButtons,ProductCard,ProductImage,ProductTitle } from '../components'
+import '../styles/custom-styles.css'
 
 
 
@@ -13,7 +14,7 @@ const product={
 
 export const ShoppingPages = () => {
   return (
-    <div>
+    <div >
         <h1>Shopping Store</h1>
         <hr />
         <div style={{
@@ -24,24 +25,40 @@ export const ShoppingPages = () => {
 
         </div>
         {/* Este Componente se converte en un Higher Order component porque va abarcar hijos */}
-        <ProductCard product={product}>
-          {/* Opcion 1: Sin propiedad */}
+        <ProductCard product={product} className="bg-dark text-white">
+        {/* Opcion 1: Con propiedad  */}
+
+          <ProductCard.Image className="custom-image" style={{
+            boxShadow:'10px 10px 10px rgba(0,0,0,0.2)'
+          }}/>
+          <ProductCard.Title className="text-bold" title={'Opcion 1'}/>
+          <ProductCard.Buttons className='custom-buttons'/>
+          </ProductCard>
+
+            {/* Opcion 2: Sin propiedad basada en hijos*/}
           
-          
-          <ProductImage/>
-          <ProductTitle title={'Hola Mundo'}/>
-          <ProductsButtons />
-       
-          
-          {/* Opcion 2: Con propiedad */}
+          <ProductCard product={product} className="bg-dark text-white">
+          <ProductImage className="custom-image" style={{
+            boxShadow:'10px 10px 10px rgba(0,0,0,0.2)'
+          }}/>
+          <ProductTitle title={'Opcion 2'} className=" text-bold"/>
+          <ProductsButtons className='custom-buttons'/>
+        </ProductCard>
 
-          <ProductCard.Image/>
-          <ProductCard.Title title={'Opcion 2'}/>
-          <ProductCard.Buttons/>
-
-
-
-
+          <ProductCard product={product}
+          style={{backgroundColor:'#70D1F8'}}
+            >
+          <ProductImage
+          style={{
+            boxShadow:'10px 10px 10px rgba(0,0,0,0.2)'
+          }}
+          />
+          <ProductTitle title='opcion con styles'
+          style={{fontWeight: 'bold'}} />
+          <ProductsButtons style={{
+            display:'flex',
+            justifyContent:'end'
+          }}/>
         </ProductCard>
         </div>
   )
