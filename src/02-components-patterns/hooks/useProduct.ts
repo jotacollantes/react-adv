@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { onChangeArgs, Product } from "../interfaces/interfaces";
 
 
@@ -17,7 +17,7 @@ export const useProduct = ({product,onChange,value=0}: useProductArgs)=> {
     //* !! significa doble negacion que es un true
     //* isControlled va a devolver un booleano
     //console.log(onChange)
-    const isControlled = useRef(!!onChange)
+    
     
 
    
@@ -25,11 +25,7 @@ export const useProduct = ({product,onChange,value=0}: useProductArgs)=> {
     const increase=()=> {
         //console.log('Increase isControlled: ',isControlled.current)
 
-        if(isControlled.current){
-
-            console.log(value)
-            return onChange!({product:product ,counter: 1})
-        }
+        
 
         //*Para no mandar el valor anterior
         const newValue=counter +1
@@ -47,11 +43,7 @@ export const useProduct = ({product,onChange,value=0}: useProductArgs)=> {
 
 
         if (counter===0) return false;
-        if(isControlled.current){
-
-            console.log(value)
-            return onChange!({product:product ,counter: -1})
-        }
+        
 
 
         //*Para no mandar el valor anterior
