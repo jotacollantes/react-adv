@@ -29,7 +29,8 @@ export interface ProductContextProps
 counter :number;
 increase : ()=> void;
 dicrease: ()=> void;
-product: Product
+product: Product,
+
 }
 
 export interface ProductCardHOCProps
@@ -43,3 +44,13 @@ export interface ProductCardHOCProps
    Buttons: ({className}:ProductButtonsProps) => JSX.Element;
    
 }
+
+export interface onChangeArgs{
+  product: Product;
+  counter: number;
+}
+
+//* ProductInCart va a extender Product y que tendra todas sus propiedades y va a añadir el counter
+export interface ProductInCart extends Product{
+  counter: number;
+  }

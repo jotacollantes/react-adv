@@ -1,6 +1,6 @@
 import { useProduct}  from '../hooks/useProduct'
 import { createContext, CSSProperties, ReactElement, useContext } from 'react';
-import { Product, ProductContextProps } from '../interfaces/interfaces';
+import { onChangeArgs, Product, ProductContextProps } from '../interfaces/interfaces';
 import styles from '../styles/styles.module.css'
 import { ProductTitle } from './ProductTitle';
 import { ProductImage } from './ProductImage';
@@ -23,14 +23,21 @@ export interface Props
     //*Es opcional, el componente puede recibir un hijo o varios, si son varios se especifica como arreglo.
     children?: ReactElement | ReactElement[];
     className?:string;
-    style?: CSSProperties
+    style?: CSSProperties;
+    onChange?:(args:onChangeArgs)=> void;
+    value?:number;
+
 }
 
 
 //* se va a recibir el objeto completo
-export const ProductCard = ({children ,product,className,style}:Props) => {
-
-    const {counter,increase,dicrease}=useProduct()
+export const ProductCard = ({children ,product,className,style,onChange,value}:Props) => {
+    //* Mando como argumento el onChange al custom Hook useProduct
+    const {counter,increase,dicrease}=useProduct({
+      product: product,
+      onChange: onChange,
+      value: value
+      })
  
 
   return (
@@ -41,6 +48,7 @@ export const ProductCard = ({children ,product,className,style}:Props) => {
             increase,
             dicrease,
             product
+          
         }}>
          <div className={`${styles.productCard} ${className}`}
          style={style}
