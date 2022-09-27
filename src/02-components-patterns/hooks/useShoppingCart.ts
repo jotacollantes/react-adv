@@ -5,7 +5,7 @@ export const useShoppingCart= ()=> {
 
 
 //*useState son hooks genericos y se puede especificar el tipo entre <>.
-  //*useStae sera del tipo object
+  //*useState sera del tipo object
   //* [key:string] significa que van a venir varios productos o sea x cantidad de key.
   
   const [shoppingCart, setShoppingCart] = useState<{ [key:string]:ProductInCart}>({})
@@ -22,8 +22,10 @@ export const useShoppingCart= ()=> {
         delete currentShoppingCart[product.id]
         return {...currentShoppingCart}
       }
+      
       return {
         ...currentShoppingCart,
+        
         [product.id]:{...product,counter : counter}
       }
      })

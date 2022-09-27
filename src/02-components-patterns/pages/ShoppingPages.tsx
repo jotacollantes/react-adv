@@ -2,88 +2,49 @@ import React, { useState } from 'react'
 import { json } from 'react-router-dom'
 import { ProductsButtons,ProductCard,ProductImage,ProductTitle } from '../components'
 import { products } from '../data/products'
-import { useShoppingCart } from '../hooks/useShoppingCart'
+// import { useShoppingCart } from '../hooks/useShoppingCart'
 //import { Product } from '../interfaces/interfaces'
 import '../styles/custom-styles.css'
 
-
+const product=products[0]
 export const ShoppingPages = () => {
-    const {shoppingCart,setShoppingCart,onProductCountChange} = useShoppingCart()
-
-
-  return (
+    
+return (
     <div >
         <h1>Shopping Store</h1>
         <hr />
-        <div style={{
-            display:'flex',
-            flexDirection: 'row',
-            flexWrap:'wrap'
-        }}>
+        <ProductCard
+        key={product.id}
+        product={product}
+        className="bg-dark text-white"
+        //Asigamos un objeto con el count y maxCount al initialValues
+        initialValues={{count: 4, maxCount:10}}
+        >
 
-        </div>
-        
-
-           {
-            products.map((product)=>(
-              <ProductCard key={product.id} product={product} className="bg-dark text-white"
-              //* onChange esta emitiendo (args(counter, product)) de la misma manera que lo hace evento onChange de un input Form
-
-              onChange={(event)=> { 
-                return onProductCountChange(event)}
-              }
-
-                //* Si no es nulo (?) se obtiene el valor del counter, si es nulo se asigna 0
-              value={shoppingCart[product.id]?.counter||0}  
-              >
-          <ProductImage className="custom-image" style={{
+          {
+            ({reset,isMaxCountReached,count,maxCount})=> (<>
+            <ProductImage className="custom-image" style={{
             boxShadow:'10px 10px 10px rgba(0,0,0,0.2)'
           }}/>
-          <ProductTitle title={'Opcion 2'} className=" text-bold"/>
+          <ProductTitle title="Titulo producto" className=" text-bold"/>
           <ProductsButtons className='custom-buttons'/>
-          </ProductCard>
-            ))
-            }
-
-            <div className="shopping-cart">
-            {
-             //* Object permite leer las proiedades del opbjeto y tambien permite usar el map. No se puede hacer con el map directamente porque no es on arreglo 
-             //*Este map es especial porque se va a barrer un objeto. La firma indica que los argumentos son un array de pares de valores: callbackfn: (value: [string, ProductInCart]) => {}
-            Object.entries(shoppingCart).map(([key,product]) => {
-              return (<ProductCard
-                //*Propiedad especial de react, no se define en las propiedades.
-                key={key}
-                product={product}
-                className="bg-dark text-white"
-                style={{width:'100px'}}
-                onChange={(event)=> { 
-                
-                  return onProductCountChange(event)}
-                }
-                value={product.counter}
-            >
-          <ProductImage className="custom-image" style={{
-            boxShadow:'10px 10px 10px rgba(0,0,0,0.2)'
-          }}/>
-          <ProductTitle title={'Opcion 2'} className=" text-bold"/>
-          <ProductsButtons className='custom-buttons'
-            style={{
-              display:'flex',
-              justifyContent:'center'
-            }}
-          />
-          </ProductCard>)
-            })
-          }
-              
-            
+          {console.log("is MaxCount", isMaxCountReached)}
+          <h1>{`${(isMaxCountReached) ? "Llego al maximo" : "" }`}</h1>
+          <button onClick={()=> {
+            return reset()
+          }}>Reset</button>
           
-            </div>
-            
+          <h3>{count}</h3>
+          <h3>{maxCount}</h3>
+          
+          
+          
+            </>)
+          }
+          
+          </ProductCard>
       <div>
-        <code>
-          {/* {JSON.stringify(shoppingCart,null,5)} */}
-        </code>
+        
       </div>
     </div>
    

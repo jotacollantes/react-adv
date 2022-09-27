@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { onChangeArgs, Product } from "../interfaces/interfaces";
+import { useEffect, useRef, useState } from "react";
+import { InitialValues, onChangeArgs, Product } from "../interfaces/interfaces";
 
 
 
@@ -7,26 +7,32 @@ interface useProductArgs{
     product: Product;
     onChange?:(args:onChangeArgs)=> void;
     value?:number;
+    initialValues?: InitialValues
 
 }
-export const useProduct = ({product,onChange,value=0}: useProductArgs)=> {
-    const [counter,setCounter]=useState(value)
+export const useProduct = ({product,onChange,value=0,initialValues}: useProductArgs)=> {
+    //Si initialValues tiene un valor se asigna este caso contrasio se asiga el valor que viene en el props value (que por defecto en caso de no venir tiene el valor 0)
     
+    //console.log("Value y counter fuera del useEffect: ",value , counter))
+    const [counter,setCounter]=useState<number>(initialValues?.count || value)
+    //console.log("Value y counter fuera del useEffect: ",value , counter)
     
-    //* Aqui deseamos obtener un valor booleano true o false, onChange devuelve una funcion o undefined onChange: ((args: onChangeArgs) => void) | undefined
-    //* !! significa doble negacion que es un true
-    //* isControlled va a devolver un booleano
-    //console.log(onChange)
-    
-    
-
-   
-
+    const isMounted=useRef(false)
+    //console.log(initialValues?.count)
     const increase=()=> {
         //console.log('Increase isControlled: ',isControlled.current)
-
         
-
+        if(initialValues?.maxCount)
+        { 
+            console.log(counter, initialValues.maxCount)
+            if (counter === initialValues.maxCount)
+            {
+                
+                return;
+            }
+        }
+       
+        
         //*Para no mandar el valor anterior
         const newValue=counter +1
         setCounter(newValue);
@@ -55,13 +61,30 @@ export const useProduct = ({product,onChange,value=0}: useProductArgs)=> {
         }   
     }
 
-    ///*Cuando el Value Cambia se ejecuta el useEffect
+        const reset = ()=>
+        {
+            setCounter(initialValues?.count || value);   
+        }
+
+
+    ///*Cuando el Value Cambia o el Componente que usa este customhook se reenderiza por primera vez se ejecuta este useEffect
     useEffect(() => {
-        //*Cambio el estado con setCounter
+    //console.log("Entro por primera vez")
+
+      //*Cambio el estado con setCounter
+      //*En este momento cuando se esta renderizando por primera vez el isMounted se mantendra en false y por ende se cumple la condicion de que es falso y se sale del useEfect sin ejecutar la funcion setCounter que actualiza el estado. Con esto podemos mostrar el count que viene en el initialValues en los botones.
+       if (!isMounted.current) return; 
+
       setCounter(value)
     
      
     }, [value])
+
+    useEffect(() => {
+        //*Cambio el isMounted a true
+      //console.log("Value y counter dentro del useEffect: ",value, counter)
+       isMounted.current=true; 
+}, [])
     
     
     return {
@@ -69,7 +92,11 @@ export const useProduct = ({product,onChange,value=0}: useProductArgs)=> {
         setCounter,
         increase,
         dicrease,
-        value
+        value,
+        maxCount: initialValues?.maxCount,
+        isMaxCountReached: initialValues?.maxCount===counter,
+        reset: reset
+
     }
 
 }
