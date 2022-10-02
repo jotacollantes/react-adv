@@ -4,21 +4,50 @@
         "name": "firstName" ,
         "placeholder": "Nombre" ,
         "label": "First name" ,
-        "value": "" 
+        "value": "",
+        "validations":[
+            {
+                "type":"required"
+            },
+            {
+                "type":"minLength",
+                "value":5
+            }
+        ]
     },
     {
         "type": "input" ,
         "name": "lastName" ,
         "placeholder": "Apellido" ,
         "label": "Last name" ,
-        "value": "" 
+        "value": "",
+        "validations":[
+            {
+                "type":"required"
+            },
+            {
+                "type":"minLength",
+                "value":5
+            }
+        ]
+         
     },
     {
         "type": "email" ,
         "name": "email" ,
         "placeholder": "jhon@google.com" ,
         "label": "Email" ,
-        "value": "" 
+        "value": "",
+        "validations":[
+            {
+                "type":"required"
+            },
+            
+            {
+                "type":"email"
+                
+            }
+        ]
     },
     {
         "type": "select" ,
@@ -27,6 +56,11 @@
         "value": "",
         "options": [{"id":1,"nombre": "Super Smash"},
                     {"id":2,"nombre": "Metal Gear"},
-                    {"id":3,"nombre": "Resident Evil"}]
+                    {"id":3,"nombre": "Resident Evil"}],
+        "validations":[
+                        {
+                            "type":"required"
+                        }
+                    ]
     }
 ]
