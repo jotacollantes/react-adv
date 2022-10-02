@@ -4,7 +4,10 @@ import {
 } from 'react-router-dom';
 
 
-import {Anime,FormikAbstractation,FormikBasicPage,FormikComponents,FormikYupPage,RegisterPage} from '../03-forms/pages'
+import {Anime,FormikAbstractation,FormikBasicPage,FormikComponents,FormikYupPage,RegisterPage,RegisterFormikPage,Children, DynamicForm} from '../03-forms/pages'
+
+
+
 
 
 // import { LazyPages1,LazyPages2,LazyPages3 } from '../01-lazyloads/pages';
@@ -54,6 +57,19 @@ export const Navigation = () => {
             </li>
 
             <li>
+            <NavLink to="/register-formik-page" className={({isActive})=> {
+              return (isActive) ? 'nav-active' :''
+            }}>Register Formik Page</NavLink>
+            </li>
+
+
+            <li>
+            <NavLink to="/dynamic-form" className={({isActive})=> {
+              return (isActive) ? 'nav-active' :''
+            }}>Dynamic Form</NavLink>
+            </li>
+
+            <li>
             <NavLink to="/users" className={({isActive})=> {
               return (isActive) ? 'nav-active' :''
             }}>Users</NavLink>
@@ -63,6 +79,11 @@ export const Navigation = () => {
             <NavLink to="/anime" className={({isActive})=> {
               return (isActive) ? 'nav-active' :''
             }}>Anime</NavLink>
+            </li>
+            <li>
+            <NavLink to="/children" className={({isActive})=> {
+              return (isActive) ? 'nav-active' :''
+            }}>Children</NavLink>
             </li>
             
 
@@ -79,8 +100,11 @@ export const Navigation = () => {
          <Route path="/formik-yup" element={<FormikYupPage/>} />
          <Route path="/formik-components" element={<FormikComponents/>} />
          <Route path="/formik-abstractation" element={<FormikAbstractation/>} />
+         <Route path="/register-formik-page" element={<RegisterFormikPage/>} />
+         <Route path="/dynamic-form" element={<DynamicForm/>} />
          <Route path="/users" element={<h1>About</h1>} />
          <Route path="/anime" element={<Anime/>} /> 
+         <Route path="/children" element={<Children/>} /> 
          {/* <Route path="/*" element={<Navigate to="" replace />} /> */}
          </Routes>
          

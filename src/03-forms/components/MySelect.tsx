@@ -10,7 +10,7 @@ interface Props {
 
 export const MySelect = ({label,...props}: Props) => {
     const [field,meta]=useField(props)
-    console.log({label,props,field,meta});
+    //console.log({label,props,field,meta});
   return (
 <>
 <label htmlFor={props.id||props.name}>{label}</label>
