@@ -130,7 +130,7 @@ validationSchema={ Yup.object({
     ({handleReset})=>(
     <Form >
 
-    <MyTextInput label='First Name' name='firstName' placeholder='First Name' />
+    <MyTextInput label='First Name' name='firstName' placeholder='First Name' type='text'/>
     <MyTextInput label='Email' name='email' type='email' placeholder='john@google.com' />
     <MyTextInput label='Password' name='password' type="password" />
     <MyTextInput label='Re-password' name='rePassword' type="password" />
